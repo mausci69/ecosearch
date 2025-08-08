@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <form id="whitepaper-form">
+  <form id="whitepaper-form" action="https://formsubmit.co/maurizioscibilia@yahoo.it" method="POST">
     <h3 style="margin-top:0;">Request the EcoSearch White Paper</h3>
     <label for="fullname">Full Name*</label>
     <input type="text" id="fullname" name="fullname" required>
@@ -78,7 +78,8 @@
 
     <label for="reason">Reason for requesting the white paper*</label>
     <textarea id="reason" name="reason" required placeholder="Tell us briefly why you are interested"></textarea>
-    
+    <input type="text" name="_honey" style="display:none">
+    <input type="hidden" name="_next" value="https://mausci69.github.io/ecosearch/thankyou.html">
     <button class="form-btn" type="submit">Request White Paper</button>
     <div id="confirm-msg" class="confirm" style="display:none;">
       Thank you for your interest! We will review your request and send you the white paper soon.
@@ -89,17 +90,6 @@
     <p>&copy; 2025 EcoSearch. Built by <a href="mailto:maurizioscibilia@yahoo.it">Maurizio Scibilia</a>.</p>
   </footer>
 
-  <script>
-    // This demo script prevents page reload, and shows confirmation.
-    // To actually send the form, use a service like Formspree, EmailJS, or connect to your backend.
-    document.getElementById('whitepaper-form').addEventListener('submit', function(e){
-      e.preventDefault();
-      // TODO: Integrate with your backend/form handler here!
-      document.getElementById('confirm-msg').style.display = 'block';
-      // Optionally clear fields:
-      e.target.reset();
-    });
-  </script>
 </body>
 </html>
 
