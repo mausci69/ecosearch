@@ -6,22 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { 
-      font-family: system-ui, sans-serif; 
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       max-width: 1100px; 
       margin: 60px auto; 
       padding: 16px; 
       background: #f7fafc; 
       color: #212529;
-      font-size: 1.16em;  /* Enlarged base font */
+      font-size: 1.16em;
     }
     h1 { 
       color: #23a066; 
-      text-align: center; /* Title centered */
+      text-align: center;
       font-size: 2.1em;
       margin-bottom: 0.6em;
     }
     .btn { display: inline-block; margin: 16px 0; padding: 12px 20px; background: #23a066; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;}
     .btn:hover { background: #18854b; }
+    .btn-outline { display:inline-block; margin: 8px; padding: 10px 16px; border:1px solid #b5cabd; border-radius:8px; text-decoration:none; color:#1b4332; background:#fff; }
+    .btn-outline:hover { background:#e7f3ec; }
+    .cta-row { text-align:center; margin: 10px 0 28px 0; }
     .abstract-box {
       background: #e7f3ec;
       border: 1.5px solid #b5cabd;
@@ -41,34 +44,82 @@
       color: #333;
       margin-top: 0.6em;
     }
+    .notice {
+      background:#fff; 
+      border:1px dashed #b5cabd; 
+      padding:12px 14px; 
+      border-radius:10px; 
+      margin: 18px 0; 
+      color:#2b4c3f;
+    }
+    .roadmap {
+      background:#eef7f1; 
+      border:1px solid #c8dacf; 
+      padding:14px 16px; 
+      border-radius:10px; 
+      margin-top: 10px;
+      font-size: 0.95em;
+    }
     form { margin: 32px 0 0 0; background: #e7f3ec; padding: 20px 18px 18px 18px; border-radius: 12px; box-shadow: 0 1px 3px #0001;}
     label, form h3 { font-weight: 500; display: block; margin-top: 12px; font-size: 1.03em; }
-    input, textarea { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #b5cabd; margin-top: 6px; font-size: 1.09em;}
+    input, textarea { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #b5cabd; margin-top: 6px; font-size: 1.09em; background: #fff;}
     textarea { min-height: 64px; resize: vertical;}
     .form-btn { margin-top: 18px; background: #23a066; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; font-size: 1.13em;}
     .form-btn:hover { background: #18854b;}
     .confirm { margin-top: 20px; color: #21784b; background: #d9f7e8; border-radius: 8px; padding: 10px 15px; }
-    footer { margin-top: 40px; font-size: 1.02em; color: #555; }
+    footer { margin-top: 40px; font-size: 1.02em; color: #555; text-align:center; }
   </style>
 </head>
 <body>
   <h1>EcoSearch</h1>
-  <p style="text-align:center;">
-    <strong>EcoSearch</strong> is an open, modular Retrieval-Augmented Generation (RAG) framework designed to make question answering more efficient and interpretable.
-    It combines dense semantic search, minimal reliance on large language models, and rigorous evaluation—offering a modern approach to intelligent information retrieval.
+  <p style="text-align:center; max-width: 980px; margin: 0 auto;">
+    <strong>EcoSearch</strong> is an open, modular Retrieval-Augmented Generation (RAG) framework for efficient and interpretable question answering.
+    It prioritises high-precision retrieval (dense semantic search + CrossEncoder reranking), minimises LLM usage, and introduces sentence-level
+    <em>oracle-span overlap</em> for rigorous evaluation.
   </p>
 
   <div class="abstract-box">
     <strong>Abstract</strong>
     <div class="abstract">
-      EcoSearch is a modular and lightweight semantic retrieval-based question answering system, designed to offer a transparent, reproducible, and efficient pipeline for open-domain QA. Unlike typical pipelines that compare user queries directly to document chunks, EcoSearch introduces a question-to-question retrieval approach: documents are split into overlapping chunks, each summarised and used to generate a synthetic “guiding question” via an LLM. All questions are embedded using SentenceTransformers, and the resulting corpus of question embeddings is indexed with FAISS. At query time, user questions are embedded and compared against the pre-generated questions via semantic similarity, retrieving the top relevant chunks. These candidates are then re-ranked using a CrossEncoder for precise matching. This pipeline reduces LLM usage, improves retrieval transparency, and allows for detailed evaluation: performance is measured by comparing retrieved chunks against ideal oracle spans identified by the LLM. This approach distinguishes EcoSearch from classic RAG pipelines by prioritising retrieval, and by requiring explicit user action for fallback LLM answer generation rather than automated end-to-end generation. While EcoSearch delivers robust, interpretable retrieval and answer generation, we find that automatic question generation remains the key source of variability, as LLM outputs are sensitive to prompt design and inherent randomness. Addressing this remains a priority for future development.
+      <p>
+        <em>EcoSearch</em> is a modular, lightweight semantic retrieval framework for open-domain QA that emphasises transparency,
+        reproducibility, and efficiency. Unlike pipelines that compare user queries directly to document chunks, EcoSearch adopts a
+        <strong>question-to-question retrieval</strong> approach: documents are split into overlapping chunks; each chunk is summarised and used to
+        generate a synthetic “guiding question” via an LLM. All guiding questions are embedded with SentenceTransformers and indexed in FAISS.
+      </p>
+      <p>
+        At query time, the user question is embedded and matched against the pre-generated guiding questions (not raw chunks) to retrieve
+        candidates with strong semantic alignment. Candidates are then <strong>reranked with a CrossEncoder</strong> for precise ordering. This pipeline
+        <strong>reduces LLM dependency</strong>, improves retrieval transparency, and supports <strong>agentic user control</strong> over answer generation:
+        the user can accept the best chunk, trigger a focused LLM answer from it, invoke a fallback that selects the best three consecutive sentences
+        from the corpus, or declare “no answer” when appropriate.
+      </p>
+      <p>
+        Evaluation focuses on <strong>oracle-span overlap</strong> (not recall@k). EcoSearch tracks sentence indices within chunks and compares retrieved
+        spans against LLM-derived oracle spans, yielding fine-grained <em>semantic and structural</em> alignment signals and more interpretable diagnostics
+        for retrieval quality.
+      </p>
+
+      <div class="notice" role="note" aria-label="Demo availability notice">
+        <strong>Why no public demo?</strong> EcoSearch integrates metered third-party LLMs (OpenAI) and protects evaluation datasets.
+        To avoid unintended costs and leakage, interactive demos are offered <em>1:1 on request</em>. Use the form below to request the white paper or a private walkthrough.
+      </div>
+
+      <div class="roadmap" aria-label="Roadmap">
+        <strong>Roadmap snapshot:</strong>
+        • Stable web pipeline (internal). • Mobile companion in progress (OCR capture, multi-page PDF assembly, local query).
+        • Ongoing: prompt stabilisation for guiding-question generation.
+      </div>
     </div>
   </div>
-  <!-- Pitch Download Buttons -->
-  <div style="text-align:center; margin-bottom: 40px;">
-    <a href="EcoSearch_pitch.zip" class="btn" download style="margin-left: 12px;">📦 Download Pitch (ZIP)</a>
+
+  <!-- Primary CTA -->
+  <div class="cta-row" aria-label="Primary actions">
+    <a href="EcoSearch_pitch.zip" class="btn" download aria-label="Download EcoSearch Pitch ZIP">📦 Download Pitch (ZIP)</a>
   </div>
-  <form id="whitepaper-form" action="https://formsubmit.co/maurizioscibilia@yahoo.it" method="POST">
+
+  <!-- White Paper Form -->
+  <form id="whitepaper-form" action="https://formsubmit.co/maurizioscibilia@yahoo.it" method="POST" aria-label="Request the EcoSearch White Paper">
     <h3 style="margin-top:0;">Request the EcoSearch White Paper</h3>
     <label for="fullname">Full Name*</label>
     <input type="text" id="fullname" name="fullname" required>
@@ -77,22 +128,23 @@
     <input type="text" id="company" name="company" required>
 
     <label for="email">Email*</label>
-    <input type="email" id="email" name="email" required>
+    <input type="email" id="email" name="email" required inputmode="email" autocomplete="email">
 
     <label for="reason">Reason for requesting the white paper*</label>
-    <textarea id="reason" name="reason" required placeholder="Tell us briefly why you are interested"></textarea>
+    <textarea id="reason" name="reason" required placeholder="Tell us briefly why you are interested (you can also ask for a private demo)"></textarea>
+
+    <!-- Spam honeypot + redirect -->
     <input type="text" name="_honey" style="display:none">
     <input type="hidden" name="_next" value="https://mausci69.github.io/ecosearch/thankyou.html">
+
     <button class="form-btn" type="submit">Request White Paper</button>
     <div id="confirm-msg" class="confirm" style="display:none;">
-      Thank you for your interest! We will review your request and send you the white paper soon.
+      Thank you for your interest! We will review your request and follow up shortly.
     </div>
   </form>
 
   <footer>
     <p>&copy; 2025 EcoSearch. Built by <a href="https://www.maurizioscibilia.com/Maurizio_Scibilia_CV.pdf">Maurizio Scibilia</a>.</p>
   </footer>
-
 </body>
 </html>
-
