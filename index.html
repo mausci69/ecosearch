@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>EcoSearch — Retrieval-Augmented QA</title>
+  <title>EcoSearch | Evidence-first Retrieval & RAG Evaluation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { 
@@ -72,55 +72,67 @@
 </head>
 <body>
   <h1>EcoSearch</h1>
+
   <p style="text-align:center; max-width: 980px; margin: 0 auto;">
-    <strong>EcoSearch</strong> is an open, modular Retrieval-Augmented Generation (RAG) framework for efficient and interpretable question answering.
-    It prioritises high-precision retrieval (dense semantic search + CrossEncoder reranking), minimises LLM usage, and introduces sentence-level
-    <em>oracle-span overlap</em> for rigorous evaluation.
+    <strong>EcoSearch</strong> is a retrieval-first system for transparent evidence access over prepared corpora.
+    It combines semantic retrieval, lexical/anchor signals, reranking, confidence routing, and retrieval-quality evaluation
+    to keep supporting evidence visible before any external generation layer is involved.
   </p>
 
   <div class="abstract-box">
-    <strong>Abstract</strong>
+    <strong>Overview</strong>
     <div class="abstract">
       <p>
-        <em>EcoSearch</em> is a modular, lightweight semantic retrieval framework for open-domain QA that emphasises transparency,
-        reproducibility, and efficiency. Unlike pipelines that compare user queries directly to document chunks, EcoSearch adopts a
-        <strong>question-to-question retrieval</strong> approach: documents are split into overlapping chunks; each chunk is summarised and used to
-        generate a synthetic “guiding question” via an LLM. All guiding questions are embedded with SentenceTransformers and indexed in FAISS.
-      </p>
-      <p>
-        At query time, the user question is embedded and matched against the pre-generated guiding questions (not raw chunks) to retrieve
-        candidates with strong semantic alignment. Candidates are then <strong>reranked with a CrossEncoder</strong> for precise ordering. This pipeline
-        <strong>reduces LLM dependency</strong>, improves retrieval transparency, and supports <strong>agentic user control</strong> over answer generation:
-        the user can accept the best chunk, trigger a focused LLM answer from it, invoke a fallback that selects the best three consecutive sentences
-        from the corpus, or declare “no answer” when appropriate.
-      </p>
-      <p>
-        Evaluation focuses on <strong>oracle-span overlap</strong> (not recall@k). EcoSearch tracks sentence indices within chunks and compares retrieved
-        spans against LLM-derived oracle spans, yielding fine-grained <em>semantic and structural</em> alignment signals and more interpretable diagnostics
-        for retrieval quality.
+        <em>EcoSearch</em> is designed around a simple principle: retrieve evidence first.
+        Instead of starting from a chatbot response, the system searches a prepared corpus, surfaces supporting passages,
+        and helps users inspect whether the retrieved text is strong enough to answer a question.
       </p>
 
-      <div class="notice" role="note" aria-label="Demo availability notice">
-        <strong>Why no public demo?</strong> EcoSearch integrates metered third-party LLMs (OpenAI) and protects evaluation datasets.
-        To avoid unintended costs and leakage, interactive demos are offered <em>1:1 on request</em>. Use the form below to request the white paper or a private walkthrough.
+      <p>
+        The project began as a retrieval-first QA workflow using chunking, embeddings, semantic search, reranking,
+        confidence routing, and sentence-level evidence tracking. EcoSearch v1.1 extends this work with semantic/lexical
+        balance experiments, rare-anchor evidence, oracle-overlap evaluation, and focus-hit diagnostics across multiple corpora.
+      </p>
+
+      <p>
+        The current mobile preview brings EcoSearch into a standalone app experience for iOS and Android.
+        Prepared corpora can be queried directly inside the app, with retrieved evidence shown to the user.
+        Corpus preparation can still use an OpenAI key, while the core retrieval workflow can run locally once the corpus has been prepared.
+      </p>
+
+      <p>
+        The goal is not to replace general-purpose chatbots. EcoSearch focuses on a narrower layer:
+        retrieval quality, source visibility, answer containment, and grounded evidence access for document-based question answering.
+      </p>
+
+      <div class="notice" role="note" aria-label="Package availability notice">
+        <strong>Want to inspect the full project?</strong>
+        A short public pitch is available for download. A fuller EcoSearch review package, including the mobile preview,
+        current white paper draft, short instruction booklet, and suggested test queries, is shared on request to avoid unintended
+        LLM costs, dataset leakage, and uncontrolled demo usage.
       </div>
 
-      <div class="roadmap" aria-label="Roadmap">
-        <strong>Roadmap snapshot:</strong>
-        • Stable web pipeline (internal). • Mobile companion in progress (OCR capture, multi-page PDF assembly, local query).
-        • Ongoing: prompt stabilisation for guiding-question generation.
+      <div class="roadmap" aria-label="Current status">
+        <strong>Current status:</strong>
+        • Retrieval-first prototype complete. • Standalone mobile preview built for iOS and Android.
+        • Ongoing: EcoSearch v1.1 white paper, semantic/lexical balance recommendations, evidence visibility, and demo polishing.
       </div>
     </div>
   </div>
 
-  <!-- Primary CTA -->
   <div class="cta-row" aria-label="Primary actions">
-    <a href="EcoSearch_pitch.zip" class="btn" download aria-label="Download EcoSearch Pitch ZIP">📦 Download Pitch (ZIP)</a>
+    <a href="EcoSearch_v11_pitch.pdf" class="btn" download aria-label="Download EcoSearch v1.1 Pitch PDF">
+      📄 Download EcoSearch Pitch
+    </a>
+    <br>
+    <a href="#whitepaper-form" class="btn-outline" aria-label="Request EcoSearch Review Package">
+      Request full review package
+    </a>
   </div>
 
-  <!-- White Paper Form -->
-  <form id="whitepaper-form" action="https://formsubmit.co/maurizioscibilia@yahoo.it" method="POST" aria-label="Request the EcoSearch White Paper">
-    <h3 style="margin-top:0;">Request the EcoSearch White Paper</h3>
+  <form id="whitepaper-form" action="https://formsubmit.co/maurizioscibilia@yahoo.it" method="POST" aria-label="Request the EcoSearch Review Package">
+    <h3 style="margin-top:0;">Request the EcoSearch Review Package</h3>
+
     <label for="fullname">Full Name*</label>
     <input type="text" id="fullname" name="fullname" required>
 
@@ -130,21 +142,22 @@
     <label for="email">Email*</label>
     <input type="email" id="email" name="email" required inputmode="email" autocomplete="email">
 
-    <label for="reason">Reason for requesting the white paper*</label>
-    <textarea id="reason" name="reason" required placeholder="Tell us briefly why you are interested (you can also ask for a private demo)"></textarea>
+    <label for="reason">Reason for requesting access*</label>
+    <textarea id="reason" name="reason" required placeholder="Tell me briefly why you are interested in EcoSearch, the mobile preview, the white paper, or a private walkthrough."></textarea>
 
-    <!-- Spam honeypot + redirect -->
+    <input type="hidden" name="_subject" value="EcoSearch Review Package Request">
     <input type="text" name="_honey" style="display:none">
-    <input type="hidden" name="_next" value="https://mausci69.github.io/ecosearch/thankyou.html">
+    <input type="hidden" name="_next" value="https://www.maurizioscibilia.com/thankyou.html">
 
-    <button class="form-btn" type="submit">Request White Paper</button>
+    <button class="form-btn" type="submit">Request Package</button>
+
     <div id="confirm-msg" class="confirm" style="display:none;">
-      Thank you for your interest! We will review your request and follow up shortly.
+      Thank you for your interest. I will review your request and follow up shortly.
     </div>
   </form>
 
   <footer>
-    <p>&copy; 2025 EcoSearch. Built by <a href="https://www.maurizioscibilia.com/Maurizio_Scibilia_CV.pdf">Maurizio Scibilia</a>.</p>
+    <p>&copy; 2026 EcoSearch. Built by <a href="https://www.maurizioscibilia.com/Maurizio_Scibilia_CV.pdf">Maurizio Scibilia</a>.</p>
   </footer>
 </body>
 </html>
