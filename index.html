@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Maurizio Scibilia | Data Scientist · AI & Retrieval Systems</title>
-  <meta name="description" content="Maurizio Scibilia is a Data Scientist focused on AI, information retrieval, NLP, evidence retrieval, local-first systems, and evaluation. Creator of ParancU.">
+  <title>Maurizio Scibilia | AI Engineer · Retrieval, Evaluation & Applied AI Systems</title>
+  <meta name="description" content="Maurizio Scibilia is an AI Engineer focused on retrieval, evidence grounding, AI evaluation, local-first systems, and applied AI.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root { --bg:#f7fafc; --surface:#fff; --soft:#eef7f1; --accent-soft:#e7f3ec; --text:#1f2933; --muted:#5b6770; --accent:#23a066; --accent-dark:#18854b; --border:#c8dacf; --shadow:rgba(31,41,51,.07); --max:1080px; }
@@ -51,82 +51,117 @@
     <nav aria-label="Main navigation">
       <a class="brand" href="/">Maurizio Scibilia</a>
       <div class="nav-links">
-        <a href="#parancu">ParancU</a>
         <a href="#work">Work</a>
+        <a href="#background">Background</a>
         <a href="#focus">Focus</a>
         <a href="Maurizio_Scibilia_CV.pdf">CV</a>
-        <a href="https://github.com/mausci69" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </nav>
 
     <main>
       <header class="hero">
-        <div class="eyebrow">Data Scientist · AI & Retrieval Systems</div>
-        <h1>Building better ways to retrieve evidence from information.</h1>
-        <p class="hero-lead">I am Maurizio Scibilia, a Data Scientist working across information retrieval, NLP, local AI, evaluation, and question answering. My current work centres on <strong>ParancU</strong>, an evidence-retrieval system that explores alternatives to conventional query-to-chunk similarity.</p>
+        <div class="eyebrow">AI Engineer · Retrieval, Evaluation & Applied AI Systems</div>
+        <h1>Building AI systems whose behaviour can be inspected, measured and improved.</h1>
+        <p class="hero-lead">I am Maurizio Scibilia, an AI Engineer focused on retrieval, evidence grounding and AI evaluation. I design systems where failure modes can be analysed, benchmarked and improved rather than hidden behind an end-to-end result.</p>
         <div class="actions">
-          <a class="btn" href="https://parancu.com" target="_blank" rel="noopener noreferrer">Explore ParancU</a>
+          <a class="btn" href="#work">Selected work</a>
           <a class="btn btn-outline" href="Maurizio_Scibilia_CV.pdf">View CV</a>
-          <a class="btn btn-outline" href="https://github.com/mausci69" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </header>
 
-      <section id="parancu">
+      <section id="work">
         <div class="feature parancu">
-          <div class="tag">Current project</div>
-          <h2 class="section-title">ParancU</h2>
-          <p>Dense retrieval is useful, but semantic proximity is not the same thing as evidence containment. ParancU starts from that distinction.</p>
-          <p>Instead of relying only on similarity between a user question and document chunks, ParancU compares questions with question-oriented retrieval metadata associated with source passages. Bounded lexical evidence can also influence ranking when exact or rare terms matter.</p>
-          <p>The current system is local-first: corpus persistence, multilingual E5 embedding inference, scoring, ranking, and evidence inspection run on-device. Question-oriented retrieval metadata is generated during corpus preparation.</p>
-          <div class="actions" style="justify-content:flex-start; margin-top:22px;">
-            <a class="btn" href="https://parancu.com" target="_blank" rel="noopener noreferrer">Visit parancu.com</a>
-            <a class="btn btn-outline" href="https://github.com/mausci69/parancu-site" target="_blank" rel="noopener noreferrer">Website repository</a>
-          </div>
+          <div class="tag">Selected AI work</div>
+          <h2 class="section-title">ParancU v1.1</h2>
+          <p><strong>Local-first evidence retrieval.</strong> ParancU explores an evidence-first approach focused on finding answer-bearing passages rather than merely semantically similar text.</p>
+          <p>The project grew from the EcoSearch v1.0 research prototype and was carried across the full AI system development cycle: research framing, architecture, implementation, benchmark design, failure analysis, mobile integration and App Store distribution.</p>
+          <p>The current implementation keeps corpus persistence, multilingual E5 inference, scoring, ranking and evidence inspection on-device. Retrieval is question-oriented, with bounded lexical evidence available when exact or rare terms matter.</p>
+          <p>The goal is not a black-box demo. ParancU is designed as an inspectable body of work, with documented architecture, evaluation results and a white paper that makes both the contribution and the remaining limitations explicit.</p>
         </div>
       </section>
 
-      <section id="work">
+      <section>
         <h2 class="section-title">From EcoSearch to ParancU</h2>
-        <p class="section-intro">ParancU grew from a broader investigation into retrieval quality, evidence visibility, and grounded question answering.</p>
+        <p class="section-intro">The project evolved by questioning the retrieval objective itself.</p>
         <div class="grid">
           <article class="card evolution">
             <div class="tag">Earlier work</div>
             <h3>EcoSearch</h3>
-            <p>EcoSearch began as a retrieval-first QA prototype built to make supporting passages visible before generation. It became a test bed for chunking, semantic search, lexical signals, reranking, confidence routing, and retrieval evaluation.</p>
-            <p>Those experiments exposed a more fundamental question: should document retrieval depend primarily on similarity between the wording of a query and the wording of a passage?</p>
+            <p>EcoSearch began as a retrieval-first QA prototype designed to make supporting passages visible before generation.</p>
+            <p>It became a test bed for chunking, semantic search, lexical signals, reranking, confidence routing and retrieval evaluation.</p>
           </article>
           <article class="card">
             <div class="tag">Current direction</div>
             <h3>Evidence-oriented retrieval</h3>
-            <p>ParancU narrows the problem. Its focus is not general chatbot generation, but the retrieval layer itself: whether the system can surface the specific evidence required by a question.</p>
-            <p>This makes retrieval behaviour easier to inspect, benchmark, and reason about independently from downstream language generation.</p>
+            <p>Those experiments exposed a more fundamental question: semantic proximity is useful, but does it reliably identify the passage containing the evidence needed to answer a question?</p>
+            <p>ParancU focuses directly on that retrieval problem, independently from downstream language generation.</p>
+          </article>
+        </div>
+      </section>
+
+
+      <section id="background">
+        <h2 class="section-title">Professional background</h2>
+        <p class="section-intro">Experience across software engineering, consulting, web development, data science and AI evaluation, including work with Siemens, Framfab / A.T. Kearney Applications &amp; Technology, Deep Consulting, Spindox and others.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="tag">Engineering</div>
+            <h3>Systems and implementation</h3>
+            <p>Hands-on experience designing and building technical systems across different generations of software, from web and application development to modern AI and retrieval pipelines.</p>
+          </article>
+          <article class="card">
+            <div class="tag">Evaluation</div>
+            <h3>Measured behaviour</h3>
+            <p>Current work places particular emphasis on benchmark design, failure analysis, retrieval quality and the distinction between plausible output and inspectable evidence.</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Education &amp; credentials</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>MSc in Computer Science</h3>
+            <p>University of Pisa · A (highest honours). 18-month research thesis on LRAM graph neural networks, including original theorems on asymptotic and exponential stability.</p>
+          </article>
+          <article class="card">
+            <h3>Advanced education</h3>
+            <p>Master in ICT, Cefriel / Politecnico di Milano · A · Scholarship recipient.</p>
+            <p>MBA, LUISS Guido Carli · A · Scholarship recipient, with international exchange at Paris Dauphine University.</p>
+          </article>
+          <article class="card">
+            <h3>TensorFlow Developer Certificate</h3>
+            <p>2021–2024</p>
+          </article>
+          <article class="card">
+            <h3>Google Cloud Professional Machine Learning Engineer</h3>
+            <p>2023–2025</p>
           </article>
         </div>
       </section>
 
       <section id="focus">
         <h2 class="section-title">Areas of focus</h2>
-        <p class="section-intro">I am particularly interested in systems where model behaviour can be measured, inspected, and improved rather than treated as an opaque end-to-end result.</p>
+        <p class="section-intro">AI engineering with a strong emphasis on retrieval quality, evidence visibility and measurable system behaviour.</p>
         <div class="focus-list" aria-label="Areas of focus">
-          <span>Information Retrieval</span><span>Evidence Retrieval</span><span>Natural Language Processing</span><span>Local AI</span><span>Embeddings</span><span>Retrieval Evaluation</span><span>Question Answering</span><span>Multilingual Systems</span><span>AI-assisted Workflows</span>
+          <span>Information Retrieval</span><span>Evidence Retrieval</span><span>AI Evaluation</span><span>Natural Language Processing</span><span>Local AI</span><span>Embeddings</span><span>Retrieval Evaluation</span><span>Question Answering</span><span>Multilingual Systems</span><span>Applied AI Systems</span>
         </div>
       </section>
 
       <section>
         <div class="feature">
           <div class="tag">Professional profile</div>
-          <h2 class="section-title">Research-minded, prototype-driven.</h2>
-          <p>My work combines data science with hands-on system design: defining a problem, building the prototype, constructing evaluations, analysing failure modes, and iterating until the behaviour becomes measurable and useful.</p>
-          <p class="small">For professional background, experience, and contact details, see my CV or GitHub profile.</p>
+          <h2 class="section-title">Research-minded, implementation-driven.</h2>
+          <p>My work combines research framing with hands-on engineering: defining the problem, building the system, constructing evaluations, analysing failure modes and iterating until the behaviour becomes measurable and useful.</p>
+          <p class="small">For full professional background, education, certifications and contact details, see my CV.</p>
           <div class="actions" style="justify-content:flex-start; margin-top:22px;">
             <a class="btn" href="Maurizio_Scibilia_CV.pdf">Open CV</a>
-            <a class="btn btn-outline" href="https://github.com/mausci69" target="_blank" rel="noopener noreferrer">GitHub profile</a>
           </div>
         </div>
       </section>
     </main>
 
-    <footer><p>&copy; 2026 Maurizio Scibilia · Data Science, AI & Retrieval Systems</p></footer>
+    <footer><p>&copy; 2026 Maurizio Scibilia · AI Engineer · Retrieval, Evaluation & Applied AI Systems</p></footer>
   </div>
 </body>
 </html>
